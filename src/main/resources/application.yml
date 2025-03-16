@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/gearvn?allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: root
+    password: root 
     # url: ${MYSQL_URL}
     # username: ${MYSQL_USER}
     # password: ${MYSQL_PASSWORD}
