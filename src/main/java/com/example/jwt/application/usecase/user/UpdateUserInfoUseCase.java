@@ -1,7 +1,8 @@
 package com.example.jwt.application.usecase.user;
 
+import com.example.jwt.dto.model.UserDto;
 import com.example.jwt.dto.request.UpdateUserRequest;
 
 public interface UpdateUserInfoUseCase {
-    void execute(int userId, UpdateUserRequest updateUserRequest);
+    UserDto execute(int userId, UpdateUserRequest updateUserRequest);
 }
