@@ -14,6 +14,8 @@ import com.example.jwt.utils.InventoryStatus;
 import com.example.jwt.utils.SlugUtil;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class AddNewProductUseCaseImpl implements AddNewProductUseCase {
     private final VendorRepository vendorRepository;
     private final ImageRepository imageRepository;
     private final CreateInventoryUseCase createInventoryUseCase;
+    private final Logger logger = LoggerFactory.getLogger(AddNewProductUseCaseImpl.class);
 
     @Override
     public ProductDto execute(CreateProductRequest createProductRequest) {
@@ -89,8 +92,8 @@ public class AddNewProductUseCaseImpl implements AddNewProductUseCase {
                     .images(imageDtos)
                     .build();
         } catch (RuntimeException e) {
-            System.out.println("Add New Product Error: " + e.getMessage());
-            return null;
+            this.logger.error("Error Add New Product {}", e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 }
