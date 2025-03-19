@@ -22,10 +22,14 @@ public class CreateProductRequest {
     private BigDecimal price;
 
     @NotNull
-    private Short categoryId;
+    private Byte categoryId;
 
     @NotNull
-    private Short vendorId;
+    private Byte vendorId;
+
+    @NotNull
+    private Short inventoryId;
 
     private List<String> imageUrls;
+
 }

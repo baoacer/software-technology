@@ -2,15 +2,11 @@ package com.example.jwt.interface_adapter.controller;
 
 import java.util.List;
 
+import com.example.jwt.application.usecase.product.AddNewProductUseCase;
+import com.example.jwt.dto.request.CreateProductRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.jwt.application.usecase.category.GetAllCategoryUseCase;
 import com.example.jwt.application.usecase.product.GetByCategoryUseCase;
@@ -34,6 +30,13 @@ public class ProductController {
     private GetByCategoryUseCase getByCategoryUseCase;
     private GetProductByIdUseCase getProductByIdUseCase;
     private SearchProductUseCase searchProductUseCase;
+    private AddNewProductUseCase addNewProductUseCase;
+
+    @PostMapping
+    public ResponseEntity<ProductDto> createProduct(@RequestBody CreateProductRequest request){
+        ProductDto productDto = this.addNewProductUseCase.execute(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
+    }
 
     @GetMapping
     public ResponseEntity<ObjectResponse<ProductDto>> getAllProducts(
