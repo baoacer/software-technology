@@ -30,9 +30,6 @@ public class OrderEntity {
     @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate;
 
-    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalAmount;
-
     @Column(name = "shipping_address")
     private String shippingAddress;
 
