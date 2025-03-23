@@ -2,19 +2,17 @@ package com.example.jwt.interface_adapter.controller;
 
 import java.util.List;
 
-import com.example.jwt.application.usecase.product.AddNewProductUseCase;
+import com.example.jwt.application.usecase.product.*;
 import com.example.jwt.dto.request.CreateProductRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.jwt.application.usecase.category.GetAllCategoryUseCase;
-import com.example.jwt.application.usecase.product.GetByCategoryUseCase;
-import com.example.jwt.application.usecase.product.GetProductByIdUseCase;
-import com.example.jwt.application.usecase.product.SearchProductUseCase;
 import com.example.jwt.dto.model.CategoryDto;
 import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.dto.model.SearchResponseDto;
+import com.example.jwt.dto.request.UpdateProductRequest;
 import com.example.jwt.dto.response.ObjectResponse;
 import com.example.jwt.utils.AppConstants;
 
@@ -30,6 +28,7 @@ public class ProductController {
     private GetByCategoryUseCase getByCategoryUseCase;
     private GetProductByIdUseCase getProductByIdUseCase;
     private SearchProductUseCase searchProductUseCase;
+    private UpdateProductUseCase updateProductUseCase; // Thêm UpdateProductUseCase
     private AddNewProductUseCase addNewProductUseCase;
 
     @PostMapping
@@ -58,7 +57,7 @@ public class ProductController {
         return new ResponseEntity<>(this.getProductByIdUseCase.execute(id), HttpStatus.OK);
     }
 
-    @GetMapping("search")
+    @GetMapping("/search")
     public ResponseEntity<List<SearchResponseDto>> searchProduct(@RequestBody String query) {
         return new ResponseEntity<>(this.searchProductUseCase.execute(query), HttpStatus.OK);
     }
@@ -67,5 +66,15 @@ public class ProductController {
     public ResponseEntity<List<String>> getProductSuggestions() {
         return new ResponseEntity<>(List.of("laptop-gaming", "chuot", "ban-phim", "vo-may-tinh", "man-hinh"),
                 HttpStatus.OK);
+    }
+
+    // Thêm route để cập nhật sản phẩm
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateProduct(@PathVariable short id, @RequestBody UpdateProductRequest updateProductRequest) {
+        // Gọi use case để cập nhật sản phẩm
+        this.updateProductUseCase.execute(id, updateProductRequest);
+
+        // Trả về response với mã trạng thái 204 (NO_CONTENT) để chỉ ra rằng cập nhật thành công
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
