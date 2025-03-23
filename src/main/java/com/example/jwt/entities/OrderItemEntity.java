@@ -27,6 +27,4 @@ public class OrderItemEntity {
     @Column(nullable = false)
     private short quantity;
 
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price; // Price at the time of order
 }

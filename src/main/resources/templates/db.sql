@@ -91,7 +91,6 @@ CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10, 2) NOT NULL,
     shipping_address VARCHAR(255),
     payment_method VARCHAR(255),
     order_status ENUM('PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'REFUNDED') DEFAULT 'PENDING',
@@ -106,7 +105,6 @@ CREATE TABLE order_items (
     order_id INT NOT NULL,
     product_id SMALLINT UNSIGNED NOT NULL,
     quantity SMALLINT UNSIGNED NOT NULL,
-    price DECIMAL(10, 2) NOT NULL, -- Price at the time of order
     FOREIGN KEY (order_id) REFERENCES orders(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
