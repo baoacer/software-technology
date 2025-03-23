@@ -1,5 +1,6 @@
 package com.example.jwt.application.usecase.user.impl;
 
+import com.example.jwt.application.exceptions.EmailAlreadyExistsException;
 import com.example.jwt.application.exceptions.NotFoundException;
 import com.example.jwt.application.usecase.user.UpdateUserInfoUseCase;
 import com.example.jwt.dto.model.UserDto;
@@ -24,6 +25,10 @@ public class UpdateUserInfoUserCaseImpl implements UpdateUserInfoUseCase {
         try {
             UserEntity user = this.userRepository.findById(userId)
                     .orElseThrow(() -> new NotFoundException("User Not Found"));
+            UserEntity existsEmail = this.userRepository.findByEmail(updateUserRequest.getEmail());
+            if(existsEmail != null){
+                throw new EmailAlreadyExistsException("Email Already Exists");
+            }
 
             user.setEmail(updateUserRequest.getEmail());
             user.setAddress(updateUserRequest.getAddress());
