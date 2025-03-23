@@ -1,7 +1,8 @@
 package com.example.jwt.application.usecase.product;
 
+import com.example.jwt.dto.model.ProductDto;
 import com.example.jwt.dto.request.CreateProductRequest;
 
 public interface AddNewProductUseCase {
-    void execute(CreateProductRequest createProductRequest);
+    ProductDto execute(CreateProductRequest createProductRequest);
 }

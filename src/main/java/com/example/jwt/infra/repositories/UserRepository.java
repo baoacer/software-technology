@@ -11,6 +11,9 @@ import com.example.jwt.utils.Role;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+
+    UserEntity findByEmail(String email);
+
     Optional<UserEntity> findByUsername(String username);
 
     Optional<UserEntity> findByEmail(String email);

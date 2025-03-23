@@ -27,6 +27,7 @@ public class ProductDto {
     private List<ImageDto> images;
     private String vendor;
     private BigDecimal price;
+    private InventoryDto inventory;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

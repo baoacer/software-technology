@@ -1,6 +1,8 @@
 package com.example.jwt.entities;
 
 import java.time.LocalDate;
+
+import lombok.Data;
 import org.hibernate.annotations.UpdateTimestamp;
 import com.example.jwt.utils.InventoryStatus;
 import jakarta.persistence.*;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "inventory")
+@Data
 public class InventoryEntity {
 
     @Id

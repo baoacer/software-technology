@@ -1,6 +1,8 @@
 package com.example.jwt.entities;
 
 import java.time.LocalDateTime;
+
+import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "images")
+@Builder
 public class ImagesEntity {
 
     @Id
