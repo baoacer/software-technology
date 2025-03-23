@@ -2,13 +2,11 @@ package com.example.jwt.interface_adapter.controller;
 
 import java.util.List;
 
+import com.example.jwt.dto.model.Order.GetAllOrderByUserIdDto.GetOrderStatusDto;
 import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient.ResponseSpec;
 
 import com.example.jwt.application.usecase.order.IOrderUseCase;
@@ -21,8 +19,6 @@ import com.example.jwt.dto.request.Order.OrderRequest;
 import com.example.jwt.dto.response.Order.CancelOrderResponse;
 import com.example.jwt.dto.response.Order.CreateOrderResponse;
 import com.example.jwt.dto.response.Order.GetAllOrderResponse;
-
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/v1/order")
@@ -112,4 +108,24 @@ public class OrderController {
             return ResponseEntity.badRequest().body(new GetAllOrderResponse<>(e.getMessage(), null));
         }
     }
+
+    @GetMapping("/status/{userId}")
+    public ResponseEntity<GetAllOrderResponse<List<GetOrderStatusDto>>> getAllOrderStatusByUserId(
+            @PathVariable int userId) {
+        if (userId == 0) {
+            return ResponseEntity.badRequest().body(new GetAllOrderResponse<>("User ID not provided", null));
+        }
+
+        try {
+            List<GetOrderStatusDto> orderStatuses = this.orderUseCase.getAllOrderStatusByUserId(userId);
+            return ResponseEntity.ok(new GetAllOrderResponse<>("Get Success", orderStatuses));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new GetAllOrderResponse<>(e.getMessage(), null));
+        }
+    }
+
+
+
+
+
 }

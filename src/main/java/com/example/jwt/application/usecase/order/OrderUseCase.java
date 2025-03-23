@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.jwt.dto.model.Order.GetAllOrderByUserIdDto.GetOrderStatusDto;
 import org.springframework.stereotype.Service;
 
 import com.example.jwt.dto.model.Order.CreateDto.CreateOrderOutputDto;
@@ -145,5 +146,21 @@ public class OrderUseCase implements IOrderUseCase {
         }).collect(Collectors.toList());
 
     }
+    @Override
+    public List<GetOrderStatusDto> getAllOrderStatusByUserId(int userId) {
+        if (userId == 0) {
+            throw new RuntimeException("User ID not provided");
+        }
+
+        // Lấy danh sách đơn hàng của user
+        List<OrderEntity> orderEntities = orderRepository.findByUserId(userId);
+
+        // Chỉ trả về orderId và orderStatus
+        return orderEntities.stream()
+                .map(order -> new GetOrderStatusDto(order.getId(), order.getOrderStatus()))
+                .collect(Collectors.toList());
+    }
+
+
 
 }
