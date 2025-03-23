@@ -54,7 +54,7 @@ public class UserEntity {
     private LocalDateTime deletedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "role", nullable = false)
     private Role role;
 
 }
