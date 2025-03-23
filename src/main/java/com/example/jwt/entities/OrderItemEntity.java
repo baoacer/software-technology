@@ -1,21 +1,24 @@
 package com.example.jwt.entities;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity(name = "order_items")
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
@@ -26,7 +29,4 @@ public class OrderItemEntity {
 
     @Column(nullable = false)
     private short quantity;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price; // Price at the time of order
 }

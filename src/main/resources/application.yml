@@ -17,17 +17,16 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/gearvn?allowPublicKeyRetrieval=true&useSSL=false
     username: root
-    password: root 
+    password: nguyenvu
     # url: ${MYSQL_URL}
     # username: ${MYSQL_USER}
     # password: ${MYSQL_PASSWORD}
 
-
-      # keycloak:
-      #   auth-server-url: http://localhost:8088/realms/tech_shop_auth_api
-      #   realm: tech_shop_auth_api
-      #   bearer-only: true
-      #   resource: tech_shop_auth
+    # keycloak:
+    #   auth-server-url: http://localhost:8088/realms/tech_shop_auth_api
+    #   realm: tech_shop_auth_api
+    #   bearer-only: true
+    #   resource: tech_shop_auth
 
 server:
   port: 8081
@@ -40,5 +39,3 @@ hibernate:
     default:
       directory_provider: filesystem
       indexBase: ./src/main/resources/static
-
-
