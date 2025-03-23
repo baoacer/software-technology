@@ -1,16 +1,20 @@
 package com.example.jwt.dto.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Getter
+@Setter
 public class CartItemDto {
     private int id;
-    private int quantity;
-    private ProductDto product;
+    private int order_id;
+    private int product_id;
+    private short quantity;
+    private BigDecimal price; // Price at the time of order
 }

@@ -13,9 +13,15 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Entity()
+@Getter
+@Setter
+@AllArgsConstructor
+@ToString
 @Table(name = "orders")
 public class OrderEntity {
     @Id
@@ -29,9 +35,6 @@ public class OrderEntity {
     @CreationTimestamp
     @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate;
-
-    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
-    private BigDecimal totalAmount;
 
     @Column(name = "shipping_address")
     private String shippingAddress;
@@ -51,6 +54,14 @@ public class OrderEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItemEntity> orderItems;
+
+    public BigDecimal calculateTotalPrice() {
+        return orderItems.stream()
+                .map(item -> item.getProduct().getPrice()
+                        .multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }
